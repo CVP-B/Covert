@@ -23,14 +23,14 @@ fnc_spawnVeins = {
 	_veh setDir round(random 360);
 	_veh setPos _pos;
 	
-	_veh addMPEventHandler ["mpkilled", {
+_veh addMPEventHandler ["mpkilled", {
 	killed = _this select 0;
 	killer = _this select 1;
 
 	killedpos = position killed;
 
-	oreCount = random(15);
-	oreSpawn = round(oreCount);
+	private oreCount = random(15);
+	private oreSpawn = round(oreCount);
 
 	_rockOre =  createVehicle ["WeaponHolderSimulated", [((killedpos select 0) + 2), ((killedpos select 1) + 2), 0], [], 0, "CAN_COLLIDE"];
 	_rockOre  addItemCargo ["cvp_IronOre", round(random(12))];
@@ -45,23 +45,19 @@ fnc_spawnVeins = {
 	_veh2 setDir round(random 360);
 	_veh2 setPos _pos2;
 	
-	_veh2 addMPEventHandler ["mpkilled", {
+_veh2 addMPEventHandler ["mpkilled", {
 	killed = _this select 0;
 	killer = _this select 1;
 
 	killedpos = position killed;
 
-	oreCount = random(15);
-	oreSpawn = round(oreCount);
+	private oreCount = random(15);
+	private oreSpawn = round(oreCount);
 
-	_rockOre =  createVehicle ["WeaponHolderSimulated", [((killedpos select 0) + 2), ((killedpos select 1) + 2), 0], [], 0, "CAN_COLLIDE"];
-	_rockOre  addItemCargo ["cvp_IronOre", round(random(12))];
-	_rockOre1 = createVehicle ["WeaponHolderSimulated", [((killedpos select 0) - 2), ((killedpos select 1) - 2), 0], [], 0, "CAN_COLLIDE"];
-	_rockOre1 addItemCargo ["cvp_IronOre", round(random(12))];
-
-	uiSleep 30;
-
-	deleteVehicle killed;
+	_rockOre2 =  createVehicle ["WeaponHolderSimulated", [((killedpos select 0) + 2), ((killedpos select 1) + 2), 0], [], 0, "CAN_COLLIDE"];
+	_rockOre2  addItemCargo ["cvp_IronOre", round(random(12))];
+	_rockOre3 = createVehicle ["WeaponHolderSimulated", [((killedpos select 0) - 2), ((killedpos select 1) - 2), 0], [], 0, "CAN_COLLIDE"];
+	_rockOre3 addItemCargo ["cvp_IronOre", round(random(12))];
 	}];
 
 	[_pos] spawn fnc_spawnVeinMarkers;
@@ -78,10 +74,10 @@ fnc_spawnVeinMarkers = {
 	_veinMarker setMarkerBrush "Vertical";
 	_veinMarker setMarkerSize [(1), (1)];
 
-	_veinMarker2 = createMarker [format["Vein %1", _markerNum], _pos];
+	_veinMarker2 = createMarker [format["Vein %1", (_markerNum + 1)], _pos];
 	_veinMarker2 setMarkerColor "ColorOrange";
 	_veinMarker2 setMarkerAlpha 1;
-	_veinMarker2 setMarkerText format["Vein %1", _markerNum];
+	_veinMarker2 setMarkerText format["Vein %1", (_markerNum + 1)];
 	_veinMarker2 setMarkerType "loc_Rock";
 	_veinMarker2 setMarkerBrush "Vertical";
 	_veinMarker2 setMarkerSize [(1), (1)];
@@ -89,7 +85,7 @@ fnc_spawnVeinMarkers = {
 
 {
 	_location = spawnLocations select _forEachIndex;
-	_selectBest = selectBestPlaces [_location, 500, "(1 + forest) * (1 + hills) * (1 - houses) * (1 - sea)", 10, 25];
+	_selectBest = selectBestPlaces [_location, 1000, "(1 + forest) * (1 + hills) * (1 - houses) * (1 - sea)", 10, 25];
 	_bestPosition = _selectBest select 1;
 
 	[_bestPosition] spawn fnc_spawnVeins;
