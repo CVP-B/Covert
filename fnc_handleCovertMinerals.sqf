@@ -78,7 +78,7 @@ fnc_spawnVeinMarkers = {
 	_veinMarker setMarkerBrush "Vertical";
 	_veinMarker setMarkerSize [(1), (1)];
 
-	_veinMarker2 = createMarker [format["Vein %1", ], _pos];
+	_veinMarker2 = createMarker [format["Vein %1", _markerNum2], _pos];
 	_veinMarker2 setMarkerColor "ColorOrange";
 	_veinMarker2 setMarkerAlpha 1;
 	_veinMarker2 setMarkerText format["Vein %1", _markerNum2];
