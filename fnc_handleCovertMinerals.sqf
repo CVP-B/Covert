@@ -1,5 +1,7 @@
 private ["_spawnLocations"];
 
+enableMapMarkers = true;
+
 spawnLocations = 
 [
 	[6207, 7759], // Stary Sobor
@@ -59,13 +61,15 @@ _veh2 addMPEventHandler ["mpkilled", {
 	_rockOre3 = createVehicle ["WeaponHolderSimulated", [((killedpos select 0) - 2), ((killedpos select 1) - 2), 0], [], 0, "CAN_COLLIDE"];
 	_rockOre3 addItemCargo ["cvp_IronOre", round(random(12))];
 	}];
-
-	[_pos] spawn fnc_spawnVeinMarkers;
+	if (enableMapMarkers == true ) then {
+		[_pos] spawn fnc_spawnVeinMarkers;
+	};
 };
 
 fnc_spawnVeinMarkers = {
 	params["_pos", "_pos2"];
 	private _markerNum = random 50;
+	private _markerNum2 = random 50;
 	_veinMarker = createMarker [format["Vein %1", _markerNum], _pos];
 	_veinMarker setMarkerColor "ColorOrange";
 	_veinMarker setMarkerAlpha 1;
@@ -74,10 +78,10 @@ fnc_spawnVeinMarkers = {
 	_veinMarker setMarkerBrush "Vertical";
 	_veinMarker setMarkerSize [(1), (1)];
 
-	_veinMarker2 = createMarker [format["Vein %1", (_markerNum + 1)], _pos];
+	_veinMarker2 = createMarker [format["Vein %1", ], _pos];
 	_veinMarker2 setMarkerColor "ColorOrange";
 	_veinMarker2 setMarkerAlpha 1;
-	_veinMarker2 setMarkerText format["Vein %1", (_markerNum + 1)];
+	_veinMarker2 setMarkerText format["Vein %1", _markerNum2];
 	_veinMarker2 setMarkerType "loc_Rock";
 	_veinMarker2 setMarkerBrush "Vertical";
 	_veinMarker2 setMarkerSize [(1), (1)];
