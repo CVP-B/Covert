@@ -14,7 +14,7 @@ fnc_spawnVeins = {
 	params["_bestPosition"];
 	private _veinPosition = _bestPosition select 0;
 	private _pos = [(_veinPosition select 0) + (random 500), (_veinPosition select 1) + (random 500)];
-	private _pos = [(_veinPosition select 0) - (random 500), (_veinPosition select 1) - (random 500)];
+	private _pos2 = [(_veinPosition select 0) - (random 500), (_veinPosition select 1) - (random 500)];
 
 	_spawnveh = "Land_cvp_rock";
 
@@ -43,7 +43,7 @@ fnc_spawnVeins = {
 	_veh2 = _spawnveh createVehicle [0,0,0];
 	_veh2 enableSimulation false;
 	_veh2 setDir round(random 360);
-	_veh2 setPos _pos;
+	_veh2 setPos _pos2;
 	
 	_veh2 addMPEventHandler ["mpkilled", {
 	killed = _this select 0;
@@ -68,7 +68,7 @@ fnc_spawnVeins = {
 };
 
 fnc_spawnVeinMarkers = {
-	params["_pos"];
+	params["_pos", "_pos2"];
 	private _markerNum = random 50;
 	_veinMarker = createMarker [format["Vein %1", _markerNum], _pos];
 	_veinMarker setMarkerColor "ColorOrange";
@@ -77,6 +77,14 @@ fnc_spawnVeinMarkers = {
 	_veinMarker setMarkerType "loc_Rock";
 	_veinMarker setMarkerBrush "Vertical";
 	_veinMarker setMarkerSize [(1), (1)];
+
+	_veinMarker2 = createMarker [format["Vein %1", _markerNum], _pos];
+	_veinMarker2 setMarkerColor "ColorOrange";
+	_veinMarker2 setMarkerAlpha 1;
+	_veinMarker2 setMarkerText format["Vein %1", _markerNum];
+	_veinMarker2 setMarkerType "loc_Rock";
+	_veinMarker2 setMarkerBrush "Vertical";
+	_veinMarker2 setMarkerSize [(1), (1)];
 };
 
 {
